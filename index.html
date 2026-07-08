@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Game Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="game-data.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div>
+        <p class="kicker">Played archive</p>
+        <h1>Game Gallery</h1>
+      </div>
+      <label class="search-box">
+        <span>Search games</span>
+        <input id="search" type="search" autocomplete="off" placeholder="Raft, Grounded, Dragonwilds...">
+      </label>
+    </header>
+
+    <main>
+      <section class="toolbar" aria-live="polite">
+        <p id="gallery-count">Loading games...</p>
+      </section>
+      <section id="gallery" class="gallery" aria-label="Game photo gallery"></section>
+      <p id="empty-state" class="empty-state" hidden>No games match that search.</p>
+    </main>
+
+    <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
+      <button class="icon-button close-button" type="button" data-close aria-label="Close image viewer">x</button>
+      <figure>
+        <div class="image-stage">
+          <img id="lightbox-image" src="" alt="">
+          <button class="icon-button nav-button prev-button" type="button" data-prev aria-label="Previous image">&lt;</button>
+          <button class="icon-button nav-button next-button" type="button" data-next aria-label="Next image">&gt;</button>
+        </div>
+        <figcaption>
+          <div>
+            <h2 id="lightbox-title"></h2>
+            <div id="lightbox-rating"></div>
+          </div>
+          <p id="lightbox-comment"></p>
+        </figcaption>
+      </figure>
+    </dialog>
+  </body>
+</html>
