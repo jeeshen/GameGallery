@@ -15,7 +15,7 @@ A static HTML, CSS, and JavaScript gallery for displaying game photos you have p
 ## Installation
 ```bash
 # clone the repo
-git clone https://github.com/yourusername/GameGallery.git
+git clone https://github.com/jeeshen/GameGallery.git
 
 # navigate to project directory
 cd GameGallery
