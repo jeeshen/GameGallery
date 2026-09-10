@@ -1,49 +1,55 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Game Gallery</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="game-data.js" defer></script>
-    <script src="script.js" defer></script>
-  </head>
-  <body>
-    <header class="site-header">
-      <div>
-        <p class="kicker">Played archive</p>
-        <h1>Game Gallery</h1>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A photo archive of the worlds we explored together. Browse our game albums and memories with friends.">
+  <title>Game Gallery — Worlds we shared</title>
+  <link rel="stylesheet" href="styles.css?v=4">
+  <script src="game-data.js?v=2" defer></script>
+  <script src="script.js?v=4" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#albums">Skip to albums</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Game Gallery home">GG<span>+</span></a>
+    <nav class="nav-links" aria-label="Gallery views"><a class="nav-link" href="#albums">Albums ↗</a><button id="all-photos-link" class="nav-link nav-button" type="button">All photos ↗</button></nav>
+    <span class="game-counter"><strong id="games-played">—</strong><span>Games played</span></span>
+  </header>
+  <main id="main">
+    <section id="home-intro" class="hero" aria-labelledby="hero-title">
+      <img class="hero-image" src="Games/Dragonwilds%201.png" alt="Our friends together outside the base in Dragonwilds" fetchpriority="high">
+      <div class="hero-content">
+        <div><p class="hero-note">Good games. Better company.</p><h1 id="hero-title">WORLDS<br>WE SHARED.</h1></div>
+        <div class="hero-side"><p>Late nights. Unexpected adventures.<br>A photo archive of playing together.</p><button id="featured-album" type="button">Inside Dragonwilds <span aria-hidden="true">↗</span></button></div>
       </div>
-      <label class="search-box">
-        <span>Search games</span>
-        <input id="search" type="search" autocomplete="off" placeholder="Raft, Grounded, Dragonwilds...">
-      </label>
-    </header>
-
-    <main>
-      <section class="toolbar" aria-live="polite">
-        <p id="gallery-count">Loading games...</p>
-      </section>
-      <section id="gallery" class="gallery" aria-label="Game photo gallery"></section>
-      <p id="empty-state" class="empty-state" hidden>No games match that search.</p>
-    </main>
-
-    <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
-      <button class="icon-button close-button" type="button" data-close aria-label="Close image viewer">x</button>
-      <figure>
-        <div class="image-stage">
-          <img id="lightbox-image" src="" alt="">
-          <button class="icon-button nav-button prev-button" type="button" data-prev aria-label="Previous image">&lt;</button>
-          <button class="icon-button nav-button next-button" type="button" data-next aria-label="Next image">&gt;</button>
-        </div>
-        <figcaption>
-          <div>
-            <h2 id="lightbox-title"></h2>
-            <div id="lightbox-rating"></div>
-          </div>
-          <p id="lightbox-comment"></p>
-        </figcaption>
-      </figure>
-    </dialog>
-  </body>
+      <a class="scroll-link" href="#albums">Scroll to the memories <span aria-hidden="true">↓</span></a>
+    </section>
+    <section id="all-photos" class="archive all-photos-page" aria-labelledby="all-photos-title" hidden>
+      <div class="archive-heading"><h2 id="all-photos-title">ALL PHOTOS<span aria-hidden="true">↙</span></h2><p>Every frame.<br>One long night.</p></div>
+      <div class="toolbar"><p id="all-photos-count" role="status"></p><button id="back-to-albums" class="text-button" type="button">← Back to albums</button></div>
+      <section id="all-gallery" class="gallery all-gallery" aria-label="All game photos"></section>
+    </section>
+    <section id="album-intro" class="album-intro" hidden>
+      <button id="back-button" class="text-button" type="button">← All albums</button>
+      <h1 id="album-title"></h1>
+      <p>A few moments from our time here.</p>
+    </section>
+    <section id="albums" class="archive" aria-labelledby="section-title">
+      <div class="archive-heading"><h2 id="section-title">THE ALBUMS<span aria-hidden="true">↙</span></h2><p id="archive-note">Different games.<br>The same familiar faces.</p></div>
+      <div class="toolbar">
+        <p id="gallery-count" role="status">Loading memories…</p>
+        <label id="search-box" class="search-box"><span class="sr-only">Find a game</span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" autocomplete="off" placeholder="Find a game"></label>
+      </div>
+      <section id="gallery" class="gallery" aria-label="Game albums"></section>
+      <div id="empty-state" class="empty-state" hidden><h2>No albums found.</h2><p>Try another game name.</p><button id="clear-search" class="text-button" type="button">Clear search ↗</button></div>
+      <noscript><p>Enable JavaScript to browse the game albums.</p></noscript>
+    </section>
+    <footer><p class="footer-title">SAME FRIENDS.<br>NEW WORLDS.</p><div><span>Game Gallery / Our shared archive</span><a href="#main">Back to top ↑</a></div></footer>
+  </main>
+  <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
+    <header class="viewer-header"><div><p class="viewer-kicker">GAME GALLERY / MEMORY REEL</p><h2 id="lightbox-title"></h2><p id="lightbox-position" aria-live="polite"></p></div><button class="icon-button" type="button" data-close aria-label="Close image viewer">×</button></header>
+    <figure><div class="image-stage"><img id="lightbox-backdrop" class="image-backdrop" alt=""><div class="backdrop-shade"></div><img id="lightbox-image" class="image-foreground" alt=""><button class="icon-button prev-button" type="button" data-prev aria-label="Previous image">←</button><button class="icon-button next-button" type="button" data-next aria-label="Next image">→</button></div><figcaption><span>← → Browse <span class="key-hint">Esc Close</span></span></figcaption></figure>
+  </dialog>
+</body>
 </html>

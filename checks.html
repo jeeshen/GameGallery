@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Gallery checks</title>
+<h1>Gallery checks</h1>
+<pre id="result">Running…</pre>
+<iframe src="index.html" title="Gallery under test" style="width:390px;height:700px"></iframe>
+<script>
+const frame = document.querySelector('iframe');
+frame.onload = () => {
+  const output = document.querySelector('#result');
+  try {
+    const doc = frame.contentDocument;
+    const win = frame.contentWindow;
+    const get = selector => doc.querySelector(selector);
+    const check = (condition, message) => { if (!condition) throw Error(message); };
+    const buttons = () => doc.querySelectorAll('#gallery button');
+    const find = value => { get('#search').value = value; get('#search').dispatchEvent(new Event('input')); };
+    check(buttons().length === win.GAME_GALLERY_DATA.length, 'Every game has an album');
+    const totalGames = String(win.GAME_GALLERY_DATA.length);
+    check(get('#games-played').textContent === totalGames, 'Header counts games, not photos');
+    find('Big Walk'); buttons()[0].click();
+    check(buttons().length === 2, 'New numbered photos share one game album');
+    get('#back-button').click();
+    find('  DRAGONWILDS  ');
+    check(buttons().length === 1, 'Search ignores case and surrounding spaces');
+    check(get('#gallery-count').textContent === '1 album · 7 photos', 'Search count');
+    buttons()[0].click();
+    check(buttons().length === 7 && get('#home-intro').hidden, 'Separate album contains seven photos');
+    check(get('#games-played').textContent === totalGames, 'Header total stays unchanged in a filtered album');
+    buttons()[0].click();
+    check(get('#lightbox').open, 'Photo opens viewer');
+    doc.dispatchEvent(new KeyboardEvent('keydown', {key:'ArrowLeft'}));
+    check(get('#lightbox-position').textContent === 'Photo 7 of 7', 'Previous wraps to last photo');
+    get('[data-next]').click();
+    check(get('#lightbox-position').textContent === 'Photo 1 of 7', 'Next wraps to first photo');
+    get('[data-close]').click();
+    check(!get('#lightbox').open, 'Viewer closes');
+    get('#back-button').click();
+    check(buttons().length === 1 && get('#search').value.trim() === 'DRAGONWILDS', 'Back preserves search');
+    find('no-such-game');
+    check(!get('#empty-state').hidden && buttons().length === 0, 'Empty state');
+    get('#clear-search').click();
+    check(buttons().length === win.GAME_GALLERY_DATA.length, 'Clear restores all albums');
+    find('Raft'); buttons()[0].click(); buttons()[0].click();
+    check(get('[data-next]').hidden && get('[data-prev]').hidden, 'Single photo hides navigation');
+    get('[data-close]').click(); get('#back-button').click();
+    get('#featured-album').click();
+    check(get('#album-title').textContent === 'Dragonwilds', 'Featured album works with a different search');
+    get('#back-button').click();
+    check(buttons().length === 1, 'Featured album preserves existing search');
+    get('#clear-search').click();
+    check(doc.documentElement.scrollWidth <= win.innerWidth, 'No horizontal overflow at phone width');
+    output.textContent = 'PASS — albums, search, counts, photo viewer, keyboard wraparound, single-photo controls, back navigation, empty state, featured album.';
+  } catch (error) { output.textContent = 'FAIL — ' + error.message; }
+};
+</script>

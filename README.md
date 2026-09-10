@@ -1,37 +1,20 @@
 # Game Gallery
 
-A static HTML, CSS, and JavaScript gallery for displaying game photos you have played, with grouped screenshots, star ratings, and comments stored in an editable data file.
+A static photo archive of games played with friends. The design is inspired by the user-selected Orkan reference: cinematic gameplay imagery, bold type, and orange album layouts.
 
-## Features
-- Responsive game gallery for desktop and mobile
-- One cover image shown per game on the main gallery
-- Clickable lightbox with left and right navigation for each game's photos
-- Star ratings displayed under each game
-- Comments or notes shown inside the lightbox after clicking a game
-- Search by game title
-- Keyboard-friendly controls for opening, closing, and navigating photos
-- No framework, backend, database, or build step required
+- One album per game, with a separate photo grid
+- All Photos page for browsing every screenshot in one cinematic reel
+- Fullscreen photo viewer with arrow keys and Escape to close
+- Search by game title, with search preserved when returning from an album
+- Responsive layout and reduced-motion support
+- No dependencies or build step
 
-## Installation
-```bash
-# clone the repo
-git clone https://github.com/yourusername/GameGallery.git
+Open `index.html` directly, or run `python -m http.server 8080 --bind 127.0.0.1` and visit http://127.0.0.1:8080.
 
-# navigate to project directory
-cd GameGallery
+## Add memories
 
-# open the gallery
-start index.html
-```
+Place screenshots in `Games/` and update `game-data.js`. Each game has a title and an `images` list; the first image is its album cover. Review fields are retained in the data file for compatibility but are not shown in the gallery.
 
-## Editing Ratings And Comments
-Update `game-data.js` to change a game's rating or comment.
+## Check the gallery
 
-```js
-{
-  title: "Raft",
-  rating: 5,
-  comment: "Great co-op survival game.",
-  images: ["Raft.png"]
-}
-```
+With the local server running, open http://127.0.0.1:8080/checks.html. It exercises the actual gallery in an iframe and reports PASS or FAIL for album navigation, search, viewer controls, and empty states.
